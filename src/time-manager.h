@@ -6,5 +6,6 @@
 
 void initTime();
 bool isInsideLightWindow();
+bool isWiFiConnected();
 
 #endif

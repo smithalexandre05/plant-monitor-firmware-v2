@@ -29,23 +29,48 @@ JSON EX
 
 JsonDocument root;
 RTCTime currentTime;
+String readyData;
 
-String buildTelemetryJson(SHTReading sht40) {
+String RTCDateFormatting() {
+  RTC.getTime(currentTime);
+  return String(currentTime);
+}
+
+String buildTelemetryJson(SHTReading sht40, 
+  float currentLightLevel, 
+  bool currentLightState, 
+  float currentSoilState, 
+  SoilState currentSoilLevel,
+  bool currentPumpStatus,
+  bool waterCooldownOver) {
 
   JsonDocument doc;
 
   doc["deviceId"] = "plant-monitor-01";
-  // add a function to convert currentTime to standardized format
-  // Should currentTime be an arg of this function? or come from #include RTC.h?
-  doc["timestamp"] = "8am";
+  String RTCtimestamp = RTCDateFormatting();
+  doc["timestamp"] = RTCtimestamp;
 
   JsonObject sensors = doc["sensors"].to<JsonObject>();
 
   sensors["temperature"] = sht40.SHTTemp;
   sensors["humidity"] = sht40.SHTHum;
+  sensors["lightRaw"] = currentLightLevel;
+  sensors["soilRaw"] = currentSoilState;
+  sensors["soilState"] = soilStateToString(currentSoilLevel);
+
+  JsonObject actuators = doc["actuators"].to<JsonObject>();
+
+  actuators["growLightOn"] = currentLightState;
+  actuators["pumpRunning"] = currentPumpStatus;
+
+  JsonObject system = doc["system"].to<JsonObject>();
+
+  system["wateringCooldownOver"] = waterCooldownOver;
 
   String jsonOutput;
   serializeJson(doc, jsonOutput);
+
+  readyData = jsonOutput;
 
   return jsonOutput;
 }

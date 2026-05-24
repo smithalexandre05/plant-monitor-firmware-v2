@@ -8,6 +8,9 @@ char pass [] = SECRET_PASS;
 // Wifi status:
 int WiFiStatus = WL_IDLE_STATUS;
 
+// Initialize the client library
+WiFiClient client;
+
 bool connectWiFi() {
   // Check if module exists
   if (WiFi.status() == WL_NO_MODULE) {
@@ -65,4 +68,8 @@ void checkFirmwareVersion() {
   if (fv < WIFI_FIRMWARE_LATEST_VERSION) {
     Serial.println("Please upgrade the WiFi firmware");
   }
+}
+
+WiFiClient& retrieveClientInstance() {
+  return client;
 }

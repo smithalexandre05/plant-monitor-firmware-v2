@@ -8,7 +8,11 @@ enum SoilState {
     INVALID
 };
 
+ extern float currentSoilState;
+ extern SoilState currentSoilLevel;
+
 void initCMS();
 SoilState determineSoilState();
+String soilStateToString(SoilState state);
 
 #endif

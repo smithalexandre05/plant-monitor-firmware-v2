@@ -8,5 +8,7 @@ bool connectWiFi();
 bool isWiFiConnected();
 void printWiFiStatus();
 void checkFirmwareVersion();
+extern WiFiClient client;
+WiFiClient& retrieveClientInstance();
 
 #endif

@@ -8,6 +8,7 @@ funcs:
 #include <Arduino.h>
 
 float currentLightLevel;
+bool currentLightState = false;
 
 void initLDR() {
     pinMode(LDR_PIN, INPUT);
@@ -20,10 +21,10 @@ float retrieveLDRReading() {
 bool determineLightState() {
     currentLightLevel = retrieveLDRReading();
     if (currentLightLevel < LDRLowerLightThreshold) {
-        currentLightState == true;
+        currentLightState = true;
         return true; // turn light ON...
     } else if (currentLightLevel > LDRUpperLightThreshold) {
-        currentLightState == false;
+        currentLightState = false;
         return false;
     }
 }

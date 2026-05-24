@@ -9,6 +9,7 @@
 #include "time-manager.h"
 
 #include "communication/telemetry.h"
+#include "communication/serverCommunication.h"
 
 SHTReading currentSHTReading;
 unsigned long lastSHTReadTime = 0;
@@ -16,8 +17,10 @@ unsigned long lastLDRReadTime = 0;
 unsigned long lastWPRunTime = 0;
 unsigned long lastCoolDownTime = 0;
 unsigned long lastDBUpdate = 0;
+unsigned long lastServerUpdate = 0; // TEST FOR NOW...
 
 bool hasSHTReading = false;
+bool hasLDRReading = false; // pointless right now...
 
 void setup() {
 
@@ -48,21 +51,24 @@ void loop() {
 
   if (isInsideLightWindow()) {
     if (currentTime - lastLDRReadTime >= LDRReadInterval) {
+      currentLightState = true;
       if (determineLightState() == true) {
         turnGrowLightON();
       } else { turnGrowLightOFF(); }
-      lastLDRReadTime = currentTime;
-    }
-  } else { turnGrowLightOFF(); }
+        lastLDRReadTime = currentTime;
+      }
+    } else { turnGrowLightOFF(); }
 
   if (waterCooldownOver) {
-    if(determineSoilState() == DRY) {
+    currentSoilLevel = determineSoilState(); // new, will need changing
+    if(currentSoilLevel == DRY) {
       waterPumpON();
       currentPumpStatus = true;
       waterCooldownOver = false;
       lastWPRunTime = currentTime;
     }
   }
+
   if ((currentPumpStatus) && (currentTime - lastWPRunTime >= WPRunTime)) {
     waterPumpOFF();
     currentPumpStatus = false;
@@ -72,9 +78,17 @@ void loop() {
     waterCooldownOver = true;
   }
 
-  if (hasSHTReading) {
-      String wow = buildTelemetryJson(currentSHTReading);
-      Serial.println(wow);
+  if (currentTime - lastServerUpdate >= ServerUpdateInterval) {
+    if (hasSHTReading) {
+      buildTelemetryJson(currentSHTReading, 
+        currentLightLevel, 
+        currentLightState, 
+        currentSoilState, 
+        currentSoilLevel, 
+        currentPumpStatus,
+        waterCooldownOver);
+      sendTelemetry();
+    }
+    lastServerUpdate = currentTime;
   }
-
 }

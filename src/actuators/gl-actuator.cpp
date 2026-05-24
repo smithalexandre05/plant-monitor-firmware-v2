@@ -1,4 +1,5 @@
 #include "config.h"
+#include "sensors/ldr-sensor.h"
 #include <Arduino.h>
 
 void initGL() {

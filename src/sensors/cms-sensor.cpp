@@ -3,6 +3,7 @@
 #include <Arduino.h>
 
 float currentSoilState;
+SoilState currentSoilLevel;
 
 void initCMS() {
     pinMode(CMS_PIN, INPUT);
@@ -20,5 +21,14 @@ SoilState determineSoilState() {
         return MOIST;
     } else {
         return WET;
+    }
+}
+
+String soilStateToString(SoilState state) {
+    switch(state) {
+        case DRY: return "DRY";
+        case MOIST: return "MOIST";
+        case WET: return "WET";
+        default: return "INVALID";
     }
 }

@@ -22,18 +22,18 @@ constexpr const unsigned long CMSReadInterval = 30000;
 constexpr const unsigned long WPCooldownPeriod = 1200000;
 constexpr const unsigned long WPRunTime = 1000; // ~80mL
 // DASHBOARD UPDATE
-constexpr const unsigned long TelemetryUpdateInterval = 2000;
+constexpr const unsigned long ServerUpdateInterval = 4000;
 
 // Time Manager
 constexpr int lowerWindowTimeLimit = 8;
-constexpr int upperWindowTimeLimit = 20;
+constexpr int upperWindowTimeLimit = 21;
 
 // Ldr
 constexpr int LDRUpperLightThreshold = 1000;
 constexpr int LDRLowerLightThreshold = 960;
 
 // Grow Light
-constexpr bool currentLightState = false;
+// constexpr bool currentLightState = false;
 
 // Capacitive Moisture Sensor
 constexpr int CMS_DRY_Min = 390;
