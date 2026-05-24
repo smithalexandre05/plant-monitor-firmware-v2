@@ -9,21 +9,19 @@ String ENDPOINT = "/api/telemetry";
 String contentType = "application/json";
 
 bool sendTelemetry() {
-    // if (isWiFiConnected()) {
-        WiFiClient& client = retrieveClientInstance();
-        HttpClient requestClient(client, SERVER_ADDRESS, SERVER_PORT);
-        requestClient.post(ENDPOINT, contentType, readyData);
+    WiFiClient& client = retrieveClientInstance();
+    HttpClient requestClient(client, SERVER_ADDRESS, SERVER_PORT);
+    requestClient.post(ENDPOINT, contentType, readyData);
 
-        int statusCode = requestClient.responseStatusCode();
-        String response = requestClient.responseBody();
+    int statusCode = requestClient.responseStatusCode();
+    String response = requestClient.responseBody();
 
-        if (statusCode == 200 || statusCode == 201) {
-            Serial.println("POST Successful");
-            return true;
-        } else {
-            Serial.print("POST Failed, status: ");
-            Serial.println(statusCode);
-            return false;
-        }
-    // } else {Serial.println("WiFi NOT Connected, can not reach server");}
+    if (statusCode == 200 || statusCode == 201) {
+        Serial.println("POST Successful");
+        return true;
+    } else {
+        Serial.print("POST Failed, status: ");
+        Serial.println(statusCode);
+        return false;
+    }
 }

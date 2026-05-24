@@ -42,7 +42,8 @@ String buildTelemetryJson(SHTReading sht40,
   float currentSoilState, 
   SoilState currentSoilLevel,
   bool currentPumpStatus,
-  bool waterCooldownOver) {
+  bool waterCooldownOver,
+  bool insideLightWindow) {
 
   JsonDocument doc;
 
@@ -66,6 +67,7 @@ String buildTelemetryJson(SHTReading sht40,
   JsonObject system = doc["system"].to<JsonObject>();
 
   system["wateringCooldownOver"] = waterCooldownOver;
+  system["insideLightWindow"] = insideLightWindow;
 
   String jsonOutput;
   serializeJson(doc, jsonOutput);

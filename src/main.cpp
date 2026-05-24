@@ -17,10 +17,10 @@ unsigned long lastLDRReadTime = 0;
 unsigned long lastWPRunTime = 0;
 unsigned long lastCoolDownTime = 0;
 unsigned long lastDBUpdate = 0;
-unsigned long lastServerUpdate = 0; // TEST FOR NOW...
+unsigned long lastServerUpdate = 0;
+unsigned long lastRTCUpdate = 0;
 
 bool hasSHTReading = false;
-bool hasLDRReading = false; // pointless right now...
 
 void setup() {
 
@@ -60,7 +60,7 @@ void loop() {
     } else { turnGrowLightOFF(); }
 
   if (waterCooldownOver) {
-    currentSoilLevel = determineSoilState(); // new, will need changing
+    currentSoilLevel = determineSoilState();
     if(currentSoilLevel == DRY) {
       waterPumpON();
       currentPumpStatus = true;
@@ -78,6 +78,11 @@ void loop() {
     waterCooldownOver = true;
   }
 
+  if (currentTime - lastRTCUpdate >= RTCDriftUpdateInterval) {
+    syncTimeFromNTP();
+    lastRTCUpdate = currentTime;
+  }
+
   if (currentTime - lastServerUpdate >= ServerUpdateInterval) {
     if (hasSHTReading) {
       buildTelemetryJson(currentSHTReading, 
@@ -86,7 +91,8 @@ void loop() {
         currentSoilState, 
         currentSoilLevel, 
         currentPumpStatus,
-        waterCooldownOver);
+        waterCooldownOver,
+        insideLightWindow);
       sendTelemetry();
     }
     lastServerUpdate = currentTime;

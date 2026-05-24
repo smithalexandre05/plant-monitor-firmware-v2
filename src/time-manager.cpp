@@ -13,6 +13,8 @@ NTPClient timeClient(Udp);
 // Has the time been set?
 bool rtcTimeValid = false;
 
+bool insideLightWindow;
+
 bool syncTimeFromNTP();
 
 void initTime() {
@@ -64,6 +66,7 @@ bool isInsideLightWindow() {
     RTC.getTime(windowTime);
     int currentHour = windowTime.getHour();
     if (currentHour >= lowerWindowTimeLimit && currentHour <= upperWindowTimeLimit) {
+        insideLightWindow = true;
         return true;
-    } else { return false; }
+    } else { insideLightWindow = false; return false; }
 }

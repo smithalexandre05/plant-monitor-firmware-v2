@@ -4,6 +4,7 @@
 #include "sensors/sht40-sensor.h"
 #include "sensors/ldr-sensor.h"
 #include "sensors/cms-sensor.h"
+#include "time-manager.h"
 
 extern String readyData;
 String buildTelemetryJson(SHTReading sht40, 
@@ -12,6 +13,7 @@ String buildTelemetryJson(SHTReading sht40,
     float currentSoilState, 
     SoilState currentSoilLevel, 
     bool currentPumpStatus,
-    bool waterCooldownOver);
+    bool waterCooldownOver,
+    bool insideLightWindow);
 
 #endif
