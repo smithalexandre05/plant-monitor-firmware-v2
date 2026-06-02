@@ -23,10 +23,12 @@ constexpr const unsigned long WPCooldownPeriod = 1200000;
 constexpr const unsigned long WPRunTime = 1000; // ~80mL
 // DASHBOARD UPDATE
 constexpr const unsigned long ServerUpdateInterval = 4000;
+// RTC DRIFT UPDATE
+constexpr const unsigned long RTCDriftUpdateInterval = 3600000;
 
 // Time Manager
 constexpr int lowerWindowTimeLimit = 8;
-constexpr int upperWindowTimeLimit = 21;
+constexpr int upperWindowTimeLimit = 20;
 
 // Ldr
 constexpr int LDRUpperLightThreshold = 1000;

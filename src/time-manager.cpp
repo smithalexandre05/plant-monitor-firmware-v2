@@ -36,7 +36,7 @@ void initTime() {
 bool syncTimeFromNTP() {
 
     // Essentially update time (when enough time has passed)
-    bool timeUpdate = timeClient.update();
+    bool timeUpdate = timeClient.forceUpdate();
 
     if (timeUpdate == true) {
         // We're 2 hours off UPC

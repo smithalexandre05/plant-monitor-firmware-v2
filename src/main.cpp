@@ -57,7 +57,7 @@ void loop() {
       } else { turnGrowLightOFF(); }
         lastLDRReadTime = currentTime;
       }
-    } else { turnGrowLightOFF(); }
+    } else { turnGrowLightOFF(); currentLightState = false; }
 
   if (waterCooldownOver) {
     currentSoilLevel = determineSoilState();

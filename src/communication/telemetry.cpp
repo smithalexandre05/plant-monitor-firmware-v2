@@ -1,27 +1,3 @@
-/*\
-JSON EX
-
-{
-  "deviceId": "plant-monitor-01",
-  "timestamp": "2026-05-14T20:00:00Z",
-  "sensors": {
-    "soilRaw": 312,
-    "soilState": "MOIST",
-    "lightRaw": 940,
-    "temperature": 22.4,
-    "humidity": 55.2
-  },
-  "actuators": {
-    "pumpRunning": false,
-    "growLightOn": true
-  },
-  "system": {
-    "insideLightWindow": true,
-    "wateringCooldownOver": false
-  }
-}
-*/
-
 #include <Arduino.h>
 #include "telemetry.h"
 #include <ArduinoJson.h>
