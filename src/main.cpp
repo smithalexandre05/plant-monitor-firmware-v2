@@ -64,6 +64,7 @@ void loop() {
     if(currentSoilLevel == DRY) {
       waterPumpON();
       currentPumpStatus = true;
+      pumpHasActivated = true;
       waterCooldownOver = false;
       lastWPRunTime = currentTime;
     }
@@ -89,11 +90,14 @@ void loop() {
         currentLightLevel, 
         currentLightState, 
         currentSoilState, 
-        currentSoilLevel, 
-        currentPumpStatus,
+        currentSoilLevel,  
+        pumpHasActivated,
         waterCooldownOver,
         insideLightWindow);
-      sendTelemetry();
+      bool sendSuccess = sendTelemetry();
+      if (sendSuccess) {
+        pumpHasActivated = false;
+      }
     }
     lastServerUpdate = currentTime;
   }

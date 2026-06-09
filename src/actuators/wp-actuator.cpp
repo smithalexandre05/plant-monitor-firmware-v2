@@ -2,6 +2,7 @@
 
 bool waterCooldownOver = true;
 bool currentPumpStatus = false;
+bool pumpHasActivated = false;
 
 void initWP() {
     pinMode(WP_PIN, OUTPUT);

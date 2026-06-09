@@ -3,8 +3,8 @@
 #include "telemetry.h"
 #include <ArduinoHttpClient.h>
 
-char SERVER_ADDRESS[] = "192.168.0.117"; // Change after Vercel implementation
-int SERVER_PORT = 3000; // Change after Vercel implementation
+char SERVER_ADDRESS[] = "plant-monitor-dashboard-v2.vercel.app";
+int SERVER_PORT = 443;
 String ENDPOINT = "/api/telemetry";
 String contentType = "application/json";
 

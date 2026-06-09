@@ -17,7 +17,7 @@ String buildTelemetryJson(SHTReading sht40,
   bool currentLightState, 
   float currentSoilState, 
   SoilState currentSoilLevel,
-  bool currentPumpStatus,
+  bool pumpHasActivated,
   bool waterCooldownOver,
   bool insideLightWindow) {
 
@@ -38,7 +38,7 @@ String buildTelemetryJson(SHTReading sht40,
   JsonObject actuators = doc["actuators"].to<JsonObject>();
 
   actuators["growLightOn"] = currentLightState;
-  actuators["pumpRunning"] = currentPumpStatus;
+  actuators["pumpRunning"] = pumpHasActivated;
 
   JsonObject system = doc["system"].to<JsonObject>();
 

@@ -22,7 +22,7 @@ constexpr const unsigned long CMSReadInterval = 30000;
 constexpr const unsigned long WPCooldownPeriod = 1200000;
 constexpr const unsigned long WPRunTime = 1000; // ~80mL
 // DASHBOARD UPDATE
-constexpr const unsigned long ServerUpdateInterval = 4000;
+constexpr const unsigned long ServerUpdateInterval = 30000;
 // RTC DRIFT UPDATE
 constexpr const unsigned long RTCDriftUpdateInterval = 3600000;
 

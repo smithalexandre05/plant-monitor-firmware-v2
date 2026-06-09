@@ -9,7 +9,7 @@ char pass [] = SECRET_PASS;
 int WiFiStatus = WL_IDLE_STATUS;
 
 // Initialize the client library
-WiFiClient client;
+WiFiSSLClient client;
 
 bool connectWiFi() {
   // Check if module exists
@@ -70,6 +70,6 @@ void checkFirmwareVersion() {
   }
 }
 
-WiFiClient& retrieveClientInstance() {
+WiFiSSLClient& retrieveClientInstance() {
   return client;
 }
